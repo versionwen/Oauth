@@ -21,38 +21,38 @@ import javax.sql.DataSource;
  * @version 1.0
  * @date 2020/4/5 16:00
  */
-//@Configuration
-//@EnableAuthorizationServer
-//public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
-//    @Bean
-//    @Primary
-//    @ConfigurationProperties(prefix = "spring.datasource")
-//    public DataSource dataSource() {
-//        // 配置数据源
-//        return DataSourceBuilder.create().build();
-//    }
-//
-//    @Bean
-//    public TokenStore tokenStore() {
-//        // 基于 JDBC 实现，令牌保存到数据
-//        return new JdbcTokenStore(dataSource());
-//    }
-//
-//    @Bean
-//    public ClientDetailsService jdbcClientDetails() {
-//        // 基于 JDBC 实现，需要事先在数据库配置客户端信息
-//        return new JdbcClientDetailsService(dataSource());
-//    }
-//
-//    @Override
-//    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-//        // 设置令牌
-//        endpoints.tokenStore(tokenStore());
-//    }
-//
-//    @Override
-//    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//        // 读取客户端配置
-//        clients.withClientDetails(jdbcClientDetails());
-//    }
-//}
+@Configuration
+@EnableAuthorizationServer
+public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource dataSource() {
+        // 配置数据源
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    public TokenStore tokenStore() {
+        // 基于 JDBC 实现，令牌保存到数据
+        return new JdbcTokenStore(dataSource());
+    }
+
+    @Bean
+    public ClientDetailsService jdbcClientDetails() {
+        // 基于 JDBC 实现，需要事先在数据库配置客户端信息
+        return new JdbcClientDetailsService(dataSource());
+    }
+
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        // 设置令牌
+        endpoints.tokenStore(tokenStore());
+    }
+
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        // 读取客户端配置
+        clients.withClientDetails(jdbcClientDetails());
+    }
+}

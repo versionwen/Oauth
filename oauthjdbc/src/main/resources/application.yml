@@ -4,7 +4,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    jdbc-url: jdbc:mysql://localhost:3306/oauth?characterEncoding=UTF-8&useSSL=false
+    jdbc-url: jdbc:mysql://localhost:3306/oauth?characterEncoding=UTF-8
     username: root
     password: 123456
     hikari:
@@ -18,7 +18,7 @@ spring:
       connection-test-query: SELECT 1
 
 server:
-  port: 8086
+  port: 8087
 mybatis:
   type-aliases-package: version.entity
   mapper-locations: classpath:mapper/*.xml

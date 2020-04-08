@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @version 1.0
  * @date 2020/4/5 16:09
  */
-@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
+@SpringBootApplication
 public class oauthjdbc {
     public static void main(String[] args) {
         SpringApplication.run(oauthjdbc.class,args);
