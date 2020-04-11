@@ -1,5 +1,6 @@
 package com.version;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
@@ -24,6 +26,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+    @Autowired
+    private AuthorizationEndpoint authorizationEndpoint;
     @Bean
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource")
@@ -31,7 +35,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         // 配置数据源
         return DataSourceBuilder.create().build();
     }
-
     @Bean
     public TokenStore tokenStore() {
         // 基于 JDBC 实现，令牌保存到数据
@@ -48,6 +51,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 设置令牌
         endpoints.tokenStore(tokenStore());
+//        endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
     }
 
     @Override
@@ -55,4 +59,5 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         // 读取客户端配置
         clients.withClientDetails(jdbcClientDetails());
     }
+
 }
